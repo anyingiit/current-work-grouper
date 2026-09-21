@@ -79,5 +79,27 @@ function fixture() {
   f.create(1);await f.drain();assert.equal(f.tabs.get(1).groupId,-1);
   assert.deepEqual(f.calls.filter(c=>c[0]==='activate'),[['activate',9]]);
  });
+ await test('user selection just before restoring is respected',async()=>{
+  const f=fixture();f.groups.set(8,{id:8,title:'当前工作',windowId:1});
+  f.tabs.set(9,{id:9,windowId:1,groupId:8,active:false});
+  f.tabs.set(10,{id:10,windowId:1,groupId:-1,active:false});
+  const query=f.chrome.tabs.query;f.chrome.tabs.query=async q=>{if(f.calls.some(c=>c[0]==='activate'&&c[1]===9)){f.tabs.get(9).active=false;f.tabs.get(10).active=true}return query(q)};
+  f.create(1);await f.drain();assert.equal(f.tabs.get(10).active,true);
+  assert.deepEqual(f.calls.filter(c=>c[0]==='activate'),[['activate',9]]);
+ });
+ await test('neighbor discarded before temporary selection is not woken',async()=>{
+  const f=fixture();f.groups.set(8,{id:8,title:'当前工作',windowId:1});
+  f.tabs.set(9,{id:9,windowId:1,groupId:8,active:false,discarded:false});
+  const update=f.chrome.tabGroups.update;f.chrome.tabGroups.update=async(id,o)=>{await update(id,o);f.tabs.get(9).discarded=true};
+  f.create(1);await f.drain();assert.equal(f.tabs.get(1).active,true);
+  assert.equal(f.calls.filter(c=>c[0]==='activate').length,0);
+ });
+ await test('background tab closed right after grouping shows no error',async()=>{
+  const f=fixture();f.groups.set(8,{id:8,title:'当前工作',windowId:1});
+  f.tabs.set(9,{id:9,windowId:1,groupId:8,active:true});
+  const group=f.chrome.tabs.group;f.chrome.tabs.group=async o=>{const id=await group(o);f.tabs.delete(1);return id};
+  f.create(1,{active:false});await f.drain();
+  assert.ok(!f.calls.some(c=>c[0]==='badge'&&c[1]==='!'));
+ });
  console.log(`${count} tests passed`);
 })().catch(e=>{console.error(e);process.exitCode=1});

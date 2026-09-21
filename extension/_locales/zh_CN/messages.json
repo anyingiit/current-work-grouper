@@ -1,0 +1,5 @@
+{
+  "extensionName": { "message": "当前工作 · 自动归组" },
+  "extensionDescription": { "message": "把新开的未分组网页自动放入自定义目标分组。点击图标设置分组名称或暂停。" },
+  "actionTitle": { "message": "自动归组：点击设置" }
+}

@@ -11,6 +11,14 @@ Created from Chef's Pick OSS Starter v1.1.0.
 
 ## [Unreleased]
 
+### Added
+
+- English interface, now the default, with a language menu in the popup to switch to Simplified Chinese. The toolbar tooltip follows the chosen language, and the extension name and description are localized for Chrome's display language.
+
+### Changed
+
+- The default target group name is `Current Work` in English and `当前工作` in Chinese. Users upgrading from an earlier version who never saved a name keep `当前工作`.
+
 ### Fixed
 
 - Add a best-effort selection workaround for vertical tab strips that stay scrolled to the bottom after an active tab joins an existing group in the same window. Background tabs keep their selection, and intervening user selection changes are checked before restoring focus.

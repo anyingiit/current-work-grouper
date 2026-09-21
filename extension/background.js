@@ -1,4 +1,5 @@
-const DEFAULT_GROUP_NAME = '当前工作';
+importScripts('i18n.js');
+
 const WAIT_MS = 10000;
 let queue = Promise.resolve();
 
@@ -8,7 +9,7 @@ function enqueue(fn) {
     // No browsing URLs are logged or saved. A closed tab is harmless;
     // other transient failures leave the tab where Chrome opened it.
     await chrome.action.setBadgeText({ text: '!' });
-    await chrome.action.setTitle({ title: '有标签未能归组（可能已关闭或正在拖动）。点击暂停，再点击恢复。' });
+    await chrome.action.setTitle({ title: strings(await language()).titleError });
   });
   return queue;
 }
@@ -17,19 +18,34 @@ async function enabled() {
   return (await chrome.storage.local.get({ enabled: true })).enabled;
 }
 
+async function language() {
+  return languageOf((await chrome.storage.local.get({ language: DEFAULT_LANGUAGE })).language);
+}
+
 async function groupName() {
-  const { groupName } = await chrome.storage.local.get({ groupName: DEFAULT_GROUP_NAME });
-  return typeof groupName === 'string' && groupName.trim() ? groupName.trim() : DEFAULT_GROUP_NAME;
+  const { groupName } = await chrome.storage.local.get({ groupName: '' });
+  if (typeof groupName === 'string' && groupName.trim()) return groupName.trim();
+  // Without a saved name, the default follows the interface language.
+  return strings(await language()).defaultGroupName;
 }
 
 async function paint() {
   const on = await enabled();
   const name = await groupName();
+  const text = strings(await language());
   await chrome.action.setBadgeText({ text: on ? 'ON' : 'OFF' });
   await chrome.action.setBadgeBackgroundColor({ color: on ? '#2563eb' : '#64748b' });
-  await chrome.action.setTitle({ title: on
-    ? `${name}：自动归组已开启，点击设置`
-    : `${name}：已暂停，点击设置` });
+  await chrome.action.setTitle({ title: on ? text.titleOn(name) : text.titleOff(name) });
+}
+
+// Versions before 1.2.0 always used the Chinese default name. Keep existing
+// users on that group when the default becomes English.
+async function migrate(details) {
+  if (details?.reason !== 'update') return;
+  const [major, minor] = String(details.previousVersion).split('.').map(Number);
+  if (!(major < 1 || (major === 1 && minor < 2))) return;
+  const { groupName } = await chrome.storage.local.get('groupName');
+  if (groupName === undefined) await chrome.storage.local.set({ groupName: LEGACY_GROUP_NAME });
 }
 
 function eligible(tab) {
@@ -103,11 +119,14 @@ chrome.tabs.onUpdated.addListener((id, change) => {
 });
 chrome.tabs.onRemoved.addListener(id => enqueue(() => forget(id)));
 chrome.storage.onChanged.addListener((changes, area) => {
-  if (area !== 'local' || (!changes.enabled && !changes.groupName)) return;
+  if (area !== 'local' || (!changes.enabled && !changes.groupName && !changes.language)) return;
   enqueue(async () => {
     if (changes.enabled) await chrome.storage.session.clear();
     await paint();
   });
 });
-chrome.runtime.onInstalled.addListener(() => enqueue(paint));
+chrome.runtime.onInstalled.addListener(details => enqueue(async () => {
+  await migrate(details);
+  await paint();
+}));
 chrome.runtime.onStartup.addListener(() => enqueue(paint));

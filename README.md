@@ -35,12 +35,12 @@ When another app (Notes, a chat client, a mail client) opens a link in Chrome, t
 
 This extension does that step for you:
 
-- New, ungrouped web pages join a target group. The default name is `当前工作` ("current work"), and you can change it.
+- New, ungrouped web pages join a target group. The default name is `Current Work`, and you can change it.
 - An open group with the same name is reused; if there is none, a blue group is created.
-- Click the toolbar icon to rename the target group or to pause and resume grouping.
+- Click the toolbar icon to rename the target group, pause and resume grouping, or switch the interface language.
 - No network requests, no content scripts, no stored browsing history.
 
-The extension's interface is in Simplified Chinese.
+The interface is in English by default and can be switched to Simplified Chinese (简体中文) from the language menu in the popup. The extension's name in `chrome://extensions` follows Chrome's own display language.
 
 See the [open issues](https://github.com/anyingiit/current-work-grouper/issues) for planned features and known issues.
 
@@ -57,17 +57,19 @@ The extension is installed as an unpacked extension.
 1. Download `current-work-grouper-v*.zip` from the [latest release](https://github.com/anyingiit/current-work-grouper/releases/latest) and unzip it somewhere permanent — Chrome loads it from that folder, so do not move or delete it afterwards. Alternatively, clone the repository and use its `extension/` folder.
 2. Open `chrome://extensions` and turn on **Developer mode** in the top-right corner.
 3. Click **Load unpacked** and select the folder that contains `manifest.json`.
-4. Pin **当前工作 · 自动归组** from the puzzle-piece menu in the toolbar.
+4. Pin **Current Work · Auto-Group** from the puzzle-piece menu in the toolbar.
 
 To update, replace the files in the same folder and click the reload button on the extension's card in `chrome://extensions`. Keeping the same folder keeps your settings.
 
 ## Usage
 
-1. Click the toolbar icon, enter the target group name under **目标分组名称** (target group name), and click **保存设置** (save settings).
+1. Click the toolbar icon, enter the target group name under **Target group name**, and click **Save settings**.
 2. Click a web link in another app. The new tab appears in that group.
-3. To pause, clear **开启自动归组** (enable auto-grouping) and save; the badge shows `OFF`. Check it and save again to resume (`ON`).
+3. To pause, clear **Auto-group new tabs** and save; the badge shows `OFF`. Check it and save again to resume (`ON`).
 
 The name is trimmed, must not be empty, and is matched literally, so Chinese characters, spaces and symbols all work. Changing it only affects tabs opened afterwards; existing groups are not renamed and existing tabs are not moved.
+
+To change the language, pick **English** or **简体中文** in the menu at the top right of the popup; it applies right away. If you have never saved a group name, the default name follows the language (`Current Work` or `当前工作`). If you used a version before 1.2.0 without saving a name, upgrading keeps `当前工作` as your saved name.
 
 ## How grouping works
 
@@ -92,7 +94,7 @@ The extension requests three permissions:
 |---|---|
 | `tabs` | Reading the URL and state of new tabs |
 | `tabGroups` | Finding, creating and updating tab groups |
-| `storage` | Saving the group name, the on/off switch and short-lived pending tab IDs |
+| `storage` | Saving the group name, the on/off switch, the interface language and short-lived pending tab IDs |
 
 It makes no network requests, injects no content scripts, has no history permission, sends no telemetry and never stores URLs. Pausing or removing the extension does not undo groupings it already made.
 

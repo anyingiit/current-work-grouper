@@ -1,12 +1,14 @@
 :root { color-scheme: light dark; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #172033; background: #f8fafc; }
 * { box-sizing: border-box; }
 body { width: 340px; margin: 0; padding: 24px; font-size: 14px; }
+header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+header select { margin-top: 2px; padding: 4px 6px; border: 1px solid #94a3b8; border-radius: 6px; background: #fff; color: inherit; font: inherit; font-size: 12px; }
 .eyebrow { color: #52708b; font-size: 12px; }
 h1 { margin: 6px 0 24px; font-size: 24px; letter-spacing: -.5px; }
 fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 label { display: block; font-weight: 600; }
 input[type="text"] { width: 100%; margin-top: 9px; padding: 11px 12px; border: 1px solid #94a3b8; border-radius: 8px; background: #fff; color: inherit; font: inherit; }
-input:focus-visible, button:focus-visible { outline: 3px solid #93c5fd; outline-offset: 2px; }
+input:focus-visible, select:focus-visible, button:focus-visible { outline: 3px solid #93c5fd; outline-offset: 2px; }
 .hint, footer { color: #526177; font-size: 12px; line-height: 1.7; }
 .hint { margin: 9px 0 20px; }
 .toggle { display: flex; align-items: center; gap: 8px; margin-bottom: 22px; }
@@ -19,7 +21,7 @@ fieldset:disabled { opacity: .6; }
 footer { border-top: 1px solid #dbe2ea; padding-top: 14px; }
 @media (prefers-color-scheme: dark) {
   :root { background: #172033; color: #e2e8f0; }
-  input[type="text"] { background: #0f172a; border-color: #64748b; }
+  input[type="text"], header select { background: #0f172a; border-color: #64748b; }
   .eyebrow, .hint, footer { color: #b0bfd1; }
   footer { border-color: #39485c; }
   #status { color: #86efac; }

@@ -1,0 +1,5 @@
+{
+  "extensionName": { "message": "Current Work · Auto-Group" },
+  "extensionDescription": { "message": "Automatically moves newly opened, ungrouped web pages into a tab group you choose. Click the icon to set the group name or pause." },
+  "actionTitle": { "message": "Auto-Group: click for settings" }
+}

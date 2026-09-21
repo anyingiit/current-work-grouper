@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>自动归组设置</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header><span class="eyebrow">标签整理</span><h1>自动归组</h1></header>
+  <form id="settings">
+    <fieldset id="fields" disabled>
+      <label for="group-name">目标分组名称</label>
+      <input id="group-name" name="groupName" type="text" placeholder="当前工作" required autocomplete="off">
+      <p class="hint">优先加入已打开的同名分组；找不到时自动创建。</p>
+      <label class="toggle"><input id="enabled" type="checkbox"><span>开启自动归组</span></label>
+      <button type="submit">保存设置</button>
+    </fieldset>
+    <p id="status" role="status" aria-live="polite">正在读取设置…</p>
+  </form>
+  <footer>新开的未分组网页会自动归组，包括外部链接和浏览器内新开的未分组网页。已有分组和标签保持原样。</footer>
+  <script src="popup.js"></script>
+</body>
+</html>

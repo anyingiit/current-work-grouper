@@ -39,7 +39,7 @@ Smaller, focused pull requests are easier to review and get merged sooner than l
 
 ## Development setup
 
-See [Getting started](README.md#getting-started) for how to install the dependencies and run the project locally.
+No dependencies are needed. With Node.js 20 or newer, run `npm test` for the automated tests, then load the `extension/` folder in `chrome://extensions` (Developer mode → Load unpacked) to try your change in Chrome. See [开发](README.md#开发) in the README.
 
 ## Questions
 

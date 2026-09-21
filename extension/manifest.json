@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "当前工作 · 自动归组",
+  "version": "1.1.1",
+  "description": "把新开的未分组网页自动放入自定义目标分组。点击图标设置分组名称或暂停。",
+  "minimum_chrome_version": "102",
+  "permissions": [
+    "tabs",
+    "tabGroups",
+    "storage"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "自动归组：点击设置",
+    "default_popup": "popup.html"
+  },
+  "incognito": "not_allowed"
+}

@@ -42,6 +42,11 @@ jobs:
           echo "All actions are pinned to full-length commit SHAs."
 
       # Add your project's linters below this line.
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+      - name: Lint extension
+        run: npm run lint
 
   test:
     name: Test
@@ -52,7 +57,8 @@ jobs:
         with:
           persist-credentials: false
 
-      # Replace the step below with your project's test command. Pin any setup
-      # action you add to a full commit SHA, like the checkout step above.
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
       - name: Run tests
-        run: echo "No tests yet. Replace this step with your project's test command."
+        run: npm test

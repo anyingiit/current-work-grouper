@@ -1,4 +1,5 @@
 <!-- Source: Keep a Changelog 1.1.0 (MIT) — https://keepachangelog.com/en/1.1.0/ -->
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
@@ -8,8 +9,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-09-21
+
+### Fixed
+
+- Links opened from other apps were skipped on macOS, because Chrome gives those tabs an opener tab. Every new, ungrouped HTTP/HTTPS page is now grouped, whether or not it has an opener.
+
+## [1.1.0] - 2026-09-21
+
 ### Added
 
-- Initial project structure.
+- Settings popup to choose the target group name (default `当前工作`) and to pause or resume grouping.
 
-[Unreleased]: https://github.com/CHANGEME_OWNER/CHANGEME_REPO/commits/main
+## [1.0.0] - 2026-09-21
+
+### Added
+
+- Move newly opened web pages into the `当前工作` tab group, creating it when it does not exist.
+
+[Unreleased]: https://github.com/anyingiit/current-work-grouper/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/anyingiit/current-work-grouper/releases/tag/v1.1.1
+[1.1.0]: https://github.com/anyingiit/current-work-grouper/releases/tag/v1.1.0
+[1.0.0]: https://github.com/anyingiit/current-work-grouper/releases/tag/v1.0.0

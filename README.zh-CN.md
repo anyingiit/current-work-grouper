@@ -118,6 +118,8 @@ npm run package   # 打包到 dist/current-work-grouper-v<版本>.zip
 
 在 `chrome://extensions` 中加载 `extension/` 文件夹即可在 Chrome 中调试。
 
+较大的功能先写规格说明。仓库已按 [Spec Kit](https://github.com/github/spec-kit) 配置：项目原则记录在 [`.specify/memory/constitution.md`](.specify/memory/constitution.md)（项目宪法，以英文为准），`.claude/skills/` 下的 `/speckit-specify`、`/speckit-plan`、`/speckit-tasks` 和 `/speckit-implement` 技能会把功能的规格、计划和任务写入 `specs/`。计划步骤会在写代码之前对照宪法检查设计。已提交的文件无需额外工具即可使用；只有需要刷新它们时，才用 `uv tool install specify-cli --from git+https://github.com/github/spec-kit.git` 安装 `specify` 命令行。小修复和文档改动可以跳过规格说明，直接提交 pull request。
+
 发布新版本时，同步修改 `extension/manifest.json` 和 `package.json` 的版本号，把 [CHANGELOG.md](CHANGELOG.md) 中 `Unreleased` 的条目移到新版本下，然后推送 `v<版本>` 标签。Release 工作流会运行检查、打包，并创建附带安装包的 GitHub Release。
 
 ## 参与贡献

@@ -353,3 +353,8 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+# --- Claude Code (project-local, machine-specific) ---
+# The spec-kit skills in .claude/skills/ are committed; these are not.
+.claude/settings.local.json
+.claude/worktrees/

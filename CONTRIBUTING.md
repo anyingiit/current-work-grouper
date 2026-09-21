@@ -29,11 +29,13 @@ Do not report security issues in public. Follow the steps in the [security polic
 ## Submitting pull requests
 
 1. Fork the repository and create a branch from `main`.
-2. Follow the existing code style.
-3. Add or update tests that cover your change.
-4. If the change is worth recording, add an entry under `Unreleased` in the [changelog](CHANGELOG.md).
-5. Make sure the CI checks pass.
-6. Open a pull request and fill in the template.
+2. Keep the change within the [project constitution](.specify/memory/constitution.md). For a non-trivial feature, write a spec first with the Spec Kit skills described under [Development](README.md#development) in the README.
+3. Follow the existing code style.
+4. Add or update tests that cover your change.
+5. If the change is worth recording, add an entry under `Unreleased` in the [changelog](CHANGELOG.md).
+6. If the change affects behavior or the workflow, update `README.md` and mirror the change in `README.zh-CN.md`.
+7. Make sure the CI checks pass.
+8. Open a pull request and fill in the template.
 
 Smaller, focused pull requests are easier to review and get merged sooner than large ones. If you plan a bigger change, it is worth opening an issue first to agree on the approach.
 

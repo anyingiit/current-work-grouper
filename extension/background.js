@@ -58,6 +58,30 @@ async function forget(id) {
   await chrome.storage.session.remove(`candidate:${id}`);
 }
 
+async function revealActiveTab(id, target) {
+  // tabs.update({active: true}) is a no-op for an already-active tab.
+  // A real selection change lets the native vertical strip reveal the tab
+  // at its new position. Keep the temporary selection inside the same group.
+  // Each step decides from one window snapshot read right before it acts,
+  // so user selections and discards that happen meanwhile are seen.
+  const snapshot = () => chrome.tabs.query({ windowId: target.windowId });
+  let tabs = await snapshot();
+  let self = tabs.find(t => t.id === id);
+  if (!self?.active || self.groupId !== target.id) return;
+  await chrome.tabGroups.update(target.id, { collapsed: false });
+  tabs = await snapshot();
+  self = tabs.find(t => t.id === id);
+  const neighbor = tabs.find(t => t.groupId === target.id && t.id !== id && !t.discarded);
+  if (!neighbor || !self?.active || self.groupId !== target.id) return;
+  await chrome.tabs.update(neighbor.id, { active: true });
+  // Do not take focus back if the user selected something else meanwhile.
+  tabs = await snapshot();
+  self = tabs.find(t => t.id === id);
+  if (tabs.find(t => t.active)?.id === neighbor.id && self?.groupId === target.id) {
+    await chrome.tabs.update(id, { active: true });
+  }
+}
+
 async function route(tab) {
   if (!eligible(tab)) return;
   const sourceWindow = await chrome.windows.get(tab.windowId);
@@ -73,12 +97,14 @@ async function route(tab) {
       await chrome.tabs.move(tab.id, { windowId: target.windowId, index: -1 });
     }
     await chrome.tabs.group({ tabIds: [tab.id], groupId: target.id });
-    if (tab.active) {
+    if (tab.active && target.windowId !== tab.windowId) {
       await chrome.tabGroups.update(target.id, { collapsed: false });
       await chrome.tabs.update(tab.id, { active: true });
-      if (target.windowId !== tab.windowId) {
-        await chrome.windows.update(target.windowId, { focused: true });
-      }
+      await chrome.windows.update(target.windowId, { focused: true });
+    } else if (tab.active) {
+      // Cosmetic correction is best-effort: closing a tab during it must
+      // not report that the already-completed grouping failed.
+      try { await revealActiveTab(tab.id, target); } catch { /* Tab closed or being dragged. */ }
     }
   } else {
     const id = await chrome.tabs.group({ tabIds: [tab.id] });

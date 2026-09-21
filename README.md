@@ -77,11 +77,13 @@ To change the language, pick **English** or **简体中文** in the menu at the 
 - A matching group in the new tab's own window is preferred. If the only match is in another window, the tab is moved there. Keep a single group with that name to avoid surprises.
 - If no matching group is open, a new one is created. A saved group that is currently closed is not reopened.
 - If the new tab was the active tab, the target group is expanded, and when the tab moved to another window, that window is focused.
+- After grouping an active tab in the same window, briefly select another tab in the group and return to encourage the vertical tab strip to reveal its new position. Background tabs do not trigger this; skip it if no other non-discarded group member exists.
 - Incognito windows, non-normal windows, browser pages (`chrome://`), `file://` pages, and pinned or already grouped tabs are ignored. Tabs that were open before installation are left alone.
 - When a new tab's URL arrives late, the extension waits for it for up to 10 seconds. A blank new tab you open by hand is not grouped when you later type an address into it.
 
 ## Known limitations
 
+- The browser creates the tab before the extension can group it, so it may still appear at the end briefly. Extensions cannot read or set the native tab strip's scroll position. The reselection workaround may briefly show another page in the group, and its visual effect depends on the browser version.
 - On macOS, Chrome gives links opened from other apps an opener tab too, so the extension cannot reliably tell an external link from one opened inside the browser. It therefore takes **every** new, ungrouped web page, including bookmarks, pages opened from within the browser and restored ungrouped tabs. Pause the extension before restoring a large session if you do not want those grouped.
 - When an external link reuses an already open blank tab, it may not be grouped.
 - Dragging tabs or closing the target window at the wrong moment can make one grouping attempt fail. The tab stays where Chrome put it and the badge shows `!`. Pause and save, then enable and save again to reset it.

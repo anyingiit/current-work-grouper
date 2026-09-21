@@ -116,6 +116,8 @@ npm run package   # builds dist/current-work-grouper-v<version>.zip
 
 Load the `extension/` folder in `chrome://extensions` to try a change in Chrome.
 
+Non-trivial features start as a spec. The repository is set up for [Spec Kit](https://github.com/github/spec-kit): the project principles live in [`.specify/memory/constitution.md`](.specify/memory/constitution.md), and the `/speckit-specify`, `/speckit-plan`, `/speckit-tasks` and `/speckit-implement` skills under `.claude/skills/` write a feature's spec, plan and tasks into `specs/`. The plan step checks the design against the constitution before any code is written. The checked-in files work without extra tools; install the `specify` CLI with `uv tool install specify-cli --from git+https://github.com/github/spec-kit.git` only if you want to refresh them. Small fixes and documentation edits can skip the spec and go straight to a pull request.
+
 To release, bump the version in both `extension/manifest.json` and `package.json`, move the `Unreleased` entries in [CHANGELOG.md](CHANGELOG.md) under the new version, and push a `v<version>` tag. The release workflow runs the checks, builds the zip and publishes a GitHub release with it attached.
 
 ## Contributing

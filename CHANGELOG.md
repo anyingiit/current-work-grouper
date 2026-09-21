@@ -11,6 +11,8 @@ Created from Chef's Pick OSS Starter v1.1.0.
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-09-21
+
 ### Added
 
 - English interface, now the default, with a language menu in the popup to switch to Simplified Chinese. The toolbar tooltip follows the chosen language, and the extension name and description are localized for Chrome's display language.
@@ -41,7 +43,8 @@ Created from Chef's Pick OSS Starter v1.1.0.
 
 - Move newly opened web pages into the `当前工作` tab group, creating it when it does not exist.
 
-[Unreleased]: https://github.com/anyingiit/current-work-grouper/compare/v1.1.1...HEAD
+[Unreleased]: https://github.com/anyingiit/current-work-grouper/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/anyingiit/current-work-grouper/compare/v1.1.1...v1.2.0
 [1.1.1]: https://github.com/anyingiit/current-work-grouper/releases/tag/v1.1.1
 [1.1.0]: https://github.com/anyingiit/current-work-grouper/releases/tag/v1.1.0
 [1.0.0]: https://github.com/anyingiit/current-work-grouper/releases/tag/v1.0.0

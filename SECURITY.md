@@ -14,7 +14,7 @@ Security updates are provided for the latest release only.
 
 **Please do not report security vulnerabilities through public issues, discussions, or pull requests.**
 
-Report it privately instead. Open the **Security** tab of this repository and choose **Report a vulnerability**, or go directly to https://github.com/anyingiit/current-work-grouper/security/advisories/new.
+Report it privately instead. Open the **Security** tab of this repository and choose **Report a vulnerability**, or go directly to https://github.com/anyingiit/current-work-grouper/security/advisories/new. If private vulnerability reporting is unavailable, email leoycwan@gmail.com.
 
 Please include:
 

@@ -11,6 +11,10 @@ Created from Chef's Pick OSS Starter v1.1.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Add a best-effort selection workaround for vertical tab strips that stay scrolled to the bottom after an active tab joins an existing group in the same window. Background tabs keep their selection, and intervening user selection changes are checked before restoring focus.
+
 ## [1.1.1] - 2026-09-21
 
 ### Fixed

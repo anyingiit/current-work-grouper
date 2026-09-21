@@ -39,7 +39,7 @@ Smaller, focused pull requests are easier to review and get merged sooner than l
 
 ## Development setup
 
-No dependencies are needed. With Node.js 20 or newer, run `npm test` for the automated tests, then load the `extension/` folder in `chrome://extensions` (Developer mode → Load unpacked) to try your change in Chrome. See [开发](README.md#开发) in the README.
+No dependencies are needed. With Node.js 20 or newer, run `npm run lint` and `npm test` (the same checks CI runs), then load the `extension/` folder in `chrome://extensions` (Developer mode → Load unpacked) to try your change in Chrome. See [Development](README.md#development) in the README.
 
 ## Questions
 

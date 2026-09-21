@@ -2,114 +2,130 @@
 
 <a id="readme-top"></a>
 
-# 当前工作 · 自动归组
+**English** · [简体中文](README.zh-CN.md)
 
-一个 Chrome 扩展：把新开的未分组网页（包括从其他应用打开的链接）自动放进你指定的标签分组，而不是排到标签栏最末尾。
+# Current Work Grouper
+
+A Chrome extension that puts newly opened, ungrouped web pages — including links opened from other apps — into a tab group you choose, instead of at the far end of the tab strip.
 
 [![CI](https://github.com/anyingiit/current-work-grouper/actions/workflows/ci.yml/badge.svg)](https://github.com/anyingiit/current-work-grouper/actions/workflows/ci.yml)
 [![License](https://img.shields.io/github/license/anyingiit/current-work-grouper)](LICENSE)
 
-[报告问题](https://github.com/anyingiit/current-work-grouper/issues/new?template=bug_report.yml) · [功能建议](https://github.com/anyingiit/current-work-grouper/issues/new?template=feature_request.yml)
+[Report a bug](https://github.com/anyingiit/current-work-grouper/issues/new?template=bug_report.yml) · [Request a feature](https://github.com/anyingiit/current-work-grouper/issues/new?template=feature_request.yml)
 
 <details>
-  <summary>目录</summary>
+  <summary>Table of Contents</summary>
   <ol>
-    <li><a href="#关于项目">关于项目</a></li>
-    <li><a href="#安装">安装</a></li>
-    <li><a href="#使用">使用</a></li>
-    <li><a href="#归组规则">归组规则</a></li>
-    <li><a href="#已知限制">已知限制</a></li>
-    <li><a href="#权限与隐私">权限与隐私</a></li>
-    <li><a href="#开发">开发</a></li>
-    <li><a href="#参与贡献">参与贡献</a></li>
-    <li><a href="#许可证">许可证</a></li>
+    <li><a href="#about-the-project">About The Project</a></li>
+    <li><a href="#getting-started">Getting Started</a></li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#how-grouping-works">How grouping works</a></li>
+    <li><a href="#known-limitations">Known limitations</a></li>
+    <li><a href="#permissions-and-privacy">Permissions and privacy</a></li>
+    <li><a href="#development">Development</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
 
-## 关于项目
+## About The Project
 
-Chrome 从外部应用（备忘录、聊天软件、邮件等）打开链接时，总是把新标签放到最末尾。如果你习惯用一个「当前工作」分组集中处理手头的网页，就得每次手动拖进去。
+When another app (Notes, a chat client, a mail client) opens a link in Chrome, the new tab always lands at the end of the tab strip. If you keep the pages you are working on in one tab group, you end up dragging every one of them in by hand.
 
-这个扩展自动完成这一步：
+This extension does that step for you:
 
-- 新开的未分组网页自动加入目标分组，默认名称为「当前工作」，可以自定义。
-- 优先使用已打开的同名分组；找不到时自动创建一个蓝色分组。
-- 点击工具栏图标即可修改分组名称、暂停或恢复。
-- 不联网、不注入网页脚本、不保存浏览记录。
+- New, ungrouped web pages join a target group. The default name is `当前工作` ("current work"), and you can change it.
+- An open group with the same name is reused; if there is none, a blue group is created.
+- Click the toolbar icon to rename the target group or to pause and resume grouping.
+- No network requests, no content scripts, no stored browsing history.
 
-## 安装
+The extension's interface is in Simplified Chinese.
 
-目前以「加载已解压的扩展程序」方式安装。
+See the [open issues](https://github.com/anyingiit/current-work-grouper/issues) for planned features and known issues.
 
-1. 在 [Releases](https://github.com/anyingiit/current-work-grouper/releases/latest) 下载 `current-work-grouper-v*.zip`，解压到一个固定位置（安装后不要删除或移动这个文件夹）。
-   也可以克隆仓库，直接使用其中的 `extension/` 文件夹。
-2. 在 Chrome 地址栏输入 `chrome://extensions`，打开右上角的「开发者模式」。
-3. 点击「加载已解压的扩展程序」，选择包含 `manifest.json` 的文件夹。
-4. 在工具栏的拼图菜单中固定「当前工作 · 自动归组」。
+## Getting Started
 
-### 更新
+### Prerequisites
 
-用新版本文件覆盖原来的文件夹，再到 `chrome://extensions` 点击此扩展的刷新按钮。保持同一个文件夹可以保留设置。
+- Google Chrome 102 or later (or another Chromium browser with tab groups)
 
-## 使用
+### Installation
 
-1. 点击工具栏图标，输入**目标分组名称**，点击**保存设置**。
-2. 从其他应用点击一个网页链接，新标签会出现在该分组中。
-3. 取消勾选「开启自动归组」并保存即可暂停（图标显示 OFF），勾选并保存恢复（ON）。
+The extension is installed as an unpacked extension.
 
-分组名称会去除首尾空格，不能留空，按原文精确匹配，支持中文、空格和符号。修改名称只影响之后新开的标签，不会重命名旧分组或移动旧标签。
+1. Download `current-work-grouper-v*.zip` from the [latest release](https://github.com/anyingiit/current-work-grouper/releases/latest) and unzip it somewhere permanent — Chrome loads it from that folder, so do not move or delete it afterwards. Alternatively, clone the repository and use its `extension/` folder.
+2. Open `chrome://extensions` and turn on **Developer mode** in the top-right corner.
+3. Click **Load unpacked** and select the folder that contains `manifest.json`.
+4. Pin **当前工作 · 自动归组** from the puzzle-piece menu in the toolbar.
 
-## 归组规则
+To update, replace the files in the same folder and click the reload button on the extension's card in `chrome://extensions`. Keeping the same folder keeps your settings.
 
-- 新建的 HTTP/HTTPS 网页，未固定且尚未分组时，自动加入目标分组。
-- 优先使用新标签所在窗口的同名分组；若只在其他窗口找到，会把新标签移过去。存在多个同名分组时，建议只保留一个。
-- 找不到已打开的同名分组时创建新分组。已保存但已关闭的分组不会被自动重新打开。
-- 新标签本来是活动标签时，会展开目标分组；跨窗口时也会切换到目标窗口。
-- 忽略隐身窗口、非普通窗口、浏览器内部页面、文件页面，以及已固定或已分组的标签。不处理安装前已打开的标签。
-- 新标签的网址延迟出现时，最多等待 10 秒；手动新建的空白标签之后再输入网址，不会被归组。
+## Usage
 
-## 已知限制
+1. Click the toolbar icon, enter the target group name under **目标分组名称** (target group name), and click **保存设置** (save settings).
+2. Click a web link in another app. The new tab appears in that group.
+3. To pause, clear **开启自动归组** (enable auto-grouping) and save; the badge shows `OFF`. Check it and save again to resume (`ON`).
 
-- Chrome 在 macOS 上也会给外部链接设置来源标签，扩展无法可靠区分「外部打开」和「浏览器内打开」。因此它会接收**所有**新开的未分组网页，包括书签、浏览器内新开的未分组网页和恢复的无分组标签。Chrome 启动恢复大量标签前，可以先暂停扩展。
-- 外部链接复用一个已打开的空白标签时，不一定会被归组。
-- 拖动标签、目标窗口被关闭等操作可能导致一次归组失败。此时标签保持原位，图标显示 `!`；在设置中暂停并保存，再开启并保存即可恢复。
+The name is trimmed, must not be empty, and is matched literally, so Chinese characters, spaces and symbols all work. Changing it only affects tabs opened afterwards; existing groups are not renamed and existing tabs are not moved.
 
-## 权限与隐私
+## How grouping works
 
-只申请三项权限：
+- A new HTTP or HTTPS page that is neither pinned nor already grouped joins the target group.
+- A matching group in the new tab's own window is preferred. If the only match is in another window, the tab is moved there. Keep a single group with that name to avoid surprises.
+- If no matching group is open, a new one is created. A saved group that is currently closed is not reopened.
+- If the new tab was the active tab, the target group is expanded, and when the tab moved to another window, that window is focused.
+- Incognito windows, non-normal windows, browser pages (`chrome://`), `file://` pages, and pinned or already grouped tabs are ignored. Tabs that were open before installation are left alone.
+- When a new tab's URL arrives late, the extension waits for it for up to 10 seconds. A blank new tab you open by hand is not grouped when you later type an address into it.
 
-| 权限 | 用途 |
+## Known limitations
+
+- On macOS, Chrome gives links opened from other apps an opener tab too, so the extension cannot reliably tell an external link from one opened inside the browser. It therefore takes **every** new, ungrouped web page, including bookmarks, pages opened from within the browser and restored ungrouped tabs. Pause the extension before restoring a large session if you do not want those grouped.
+- When an external link reuses an already open blank tab, it may not be grouped.
+- Dragging tabs or closing the target window at the wrong moment can make one grouping attempt fail. The tab stays where Chrome put it and the badge shows `!`. Pause and save, then enable and save again to reset it.
+
+## Permissions and privacy
+
+The extension requests three permissions:
+
+| Permission | Used for |
 |---|---|
-| `tabs` | 读取新标签的网址和状态 |
-| `tabGroups` | 查找、创建和管理分组 |
-| `storage` | 保存目标分组名称、开关，以及短期待处理的标签 ID |
+| `tabs` | Reading the URL and state of new tabs |
+| `tabGroups` | Finding, creating and updating tab groups |
+| `storage` | Saving the group name, the on/off switch and short-lived pending tab IDs |
 
-没有网络请求、内容脚本、浏览历史权限或遥测，不保存任何网址。暂停或移除扩展不会撤销已完成的归组。
+It makes no network requests, injects no content scripts, has no history permission, sends no telemetry and never stores URLs. Pausing or removing the extension does not undo groupings it already made.
 
-实现依据：[chrome.tabs](https://developer.chrome.com/docs/extensions/reference/api/tabs)、[chrome.tabGroups](https://developer.chrome.com/docs/extensions/reference/api/tabGroups)。
+Built on the Chrome extension APIs [`chrome.tabs`](https://developer.chrome.com/docs/extensions/reference/api/tabs) and [`chrome.tabGroups`](https://developer.chrome.com/docs/extensions/reference/api/tabGroups).
 
-## 开发
+## Development
 
-无第三方依赖，只需要 Node.js 20 或更新版本。
+There are no third-party dependencies; you only need Node.js 20 or later.
 
 ```sh
 git clone https://github.com/anyingiit/current-work-grouper.git
 cd current-work-grouper
-npm run lint      # 语法检查、manifest 校验
-npm test          # 模拟 Chrome API 的行为测试
-npm run package   # 打包到 dist/current-work-grouper-v<版本>.zip
+npm run lint      # syntax check and manifest validation
+npm test          # behavior tests against a mocked Chrome API
+npm run package   # builds dist/current-work-grouper-v<version>.zip
 ```
 
-在 Chrome 中加载 `extension/` 文件夹即可调试。发布新版本时，同步修改 `extension/manifest.json` 和 `package.json` 的版本号、更新 [CHANGELOG.md](CHANGELOG.md)，然后推送 `v<版本>` 标签，CI 会自动创建 Release 并附上安装包。
+Load the `extension/` folder in `chrome://extensions` to try a change in Chrome.
 
-## 参与贡献
+To release, bump the version in both `extension/manifest.json` and `package.json`, move the `Unreleased` entries in [CHANGELOG.md](CHANGELOG.md) under the new version, and push a `v<version>` tag. The release workflow runs the checks, builds the zip and publishes a GitHub release with it attached.
 
-欢迎贡献。提交 issue 或 pull request 前请阅读 [CONTRIBUTING.md](CONTRIBUTING.md) 和 [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)。
+## Contributing
 
-请不要在公开的 issue 或 pull request 中报告安全问题，[SECURITY.md](SECURITY.md) 说明了如何私下报告。
+Contributions are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) for how to open an issue or a pull request, and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for the standards expected of everyone taking part.
 
-## 许可证
+Please do not report security issues in public issues or pull requests. [SECURITY.md](SECURITY.md) explains how to report them privately.
 
-基于 MIT 许可证发布，详见 [LICENSE](LICENSE)。
+## License
 
-<p align="right">(<a href="#readme-top">回到顶部</a>)</p>
+Distributed under the MIT License. See [LICENSE](LICENSE) for details.
+
+## Contact
+
+Project link: [https://github.com/anyingiit/current-work-grouper](https://github.com/anyingiit/current-work-grouper)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>

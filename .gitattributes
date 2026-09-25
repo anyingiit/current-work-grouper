@@ -1,0 +1,4 @@
+# Keep tooling scripts out of GitHub's language stats so the repo shows as JavaScript
+.specify/** linguist-vendored
+.claude/** linguist-vendored
+scripts/** linguist-detectable=false
